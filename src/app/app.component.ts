@@ -12,7 +12,7 @@ import { CandidateRegistrationComponent } from './auth/registration/candidate/ca
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  title = 'Domaincer -Job Portal';
   public spinkit = Spinkit;
   loginStatus: Boolean;
   loginRole: String;
