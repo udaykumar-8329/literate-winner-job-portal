@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from "ngx-toastr";
 import { ApplicationService } from '../services/application.service';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 class Resume {
@@ -49,7 +49,10 @@ export class ApplicationComponent implements OnInit {
     this.filePath = null;
     const formData = new FormData();
     formData.append('file', this.resumes);
-    this._http.post<any>('http://localhost:3000/api/file/upload', formData).subscribe(
+    const token = localStorage.getItem('token');
+    let postheaders = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
+              'content-type': 'application/json', 'Authorization' : `Bearer ${localStorage.getItem('token')}` }  )
+    this._http.post<any>(environment.apiBaseUrl+'file/upload', formData, {headers: postheaders} ).subscribe(
       (res) => {
         console.log(res);
         this.filePath = res["path"]

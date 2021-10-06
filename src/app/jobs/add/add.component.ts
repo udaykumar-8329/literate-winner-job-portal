@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { JobsService } from 'src/app/services/jobs.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { JobsService } from 'src/app/services/jobs.service';
 export class AddComponent implements OnInit {
 
   jobForm: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private _jobService: JobsService) {
+  constructor(private _formBuilder: FormBuilder,private _toastrService: ToastrService, private _jobService: JobsService, private _dialogRef: MatDialogRef<AddComponent>) {
 
   }
 
@@ -30,7 +32,13 @@ export class AddComponent implements OnInit {
     jobData["postedBy"] = localStorage.getItem('userId');
     this._jobService.addJob(jobData).subscribe((res)=>{
       console.log(jobData);
+      console.log(res);
+      if(res['status']){
+        this._dialogRef.close({status: true});
+        this._toastrService.success('Job Added Successfully');
+      }else{
+        this._toastrService.success('Something error Occured, please try again');
+      }
     });
   }
-
 }
