@@ -49,9 +49,8 @@ export class ApplicationComponent implements OnInit {
     this.filePath = null;
     const formData = new FormData();
     formData.append('file', this.resumes);
-    const token = localStorage.getItem('token');
-    let postheaders = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
-              'content-type': 'application/json', 'Authorization' : `Bearer ${localStorage.getItem('token')}` }  )
+    // const token = localStorage.getItem('token');
+    let postheaders = new HttpHeaders({ 'Access-Control-Allow-Origin': '*', 'content-type': 'application/json', 'Authorization' : `Bearer ${localStorage.getItem('token')}` }  )
     this._http.post<any>(environment.apiBaseUrl+'file/upload', formData, {headers: postheaders} ).subscribe(
       (res) => {
         console.log(res);
@@ -66,7 +65,7 @@ export class ApplicationComponent implements OnInit {
     this._applicationService.checkIfAlreadyApplied(this.data.jobId).subscribe(res => {
       if (!res['applied']) {
         console.log(res);
-        if (this.filePath) {
+        // if (this.filePath) {
           var applicationData = this.candidateApplicationForm.value;
           applicationData.resume = this.filePath;
           applicationData.jobId = this.data.jobId;
@@ -79,9 +78,9 @@ export class ApplicationComponent implements OnInit {
               this._toastrService.error(res['data']['message'], 'Something error occured')
             }
           });
-        } else {
-          alert('Upload a resume');
-        }
+        // } else {
+        //   alert('Upload a resume');
+        // }
       } else {
         this._toastrService.error('Already Applied');
       }

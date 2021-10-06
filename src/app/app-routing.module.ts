@@ -16,6 +16,8 @@ const routes: Routes = [{
   path:'applications', component: ViewComponent
 },{
   path:'home', component: LandingPageComponent
+},{
+  path:'', redirectTo:'home', pathMatch: 'full'
 }];
 
 @NgModule({
