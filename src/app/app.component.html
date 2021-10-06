@@ -9,7 +9,6 @@
     </a>
     <span class="example-spacer"></span>
     <button mat-button (click)="goTo('home')">Home</button>
-
     <div fxShow="true" fxHide.lt-md="true" *ngIf="!loginStatus" >
       <button mat-button (click)="openLoginDialog()&&sidenav.toggle()">Login</button>
       <button mat-button (click)="openRegistrationDialog()">Register</button>
@@ -32,13 +31,20 @@
       mode="over"
       opened="false"
       fxHide.gt-sm="true">
-      <div fxLayout="column" *ngIf="!loginStatus">
-        <button mat-button (click)="openLoginDialog()">Login</button>
-        <button mat-button (click)="openRegistrationDialog()">Register</button>
-      </div>
-      <div fxLayout="column" *ngIf="loginStatus">
-        <button mat-button (click)="logout()">Logout</button>
-      </div>
+    <button mat-button (click)="goTo('home')">Home</button>
+    <div fxShow="true" *ngIf="!loginStatus" >
+      <button mat-button (click)="openLoginDialog()&&sidenav.toggle()">Login</button>
+      <button mat-button (click)="openRegistrationDialog()">Register</button>
+    </div>
+    <div fxShow="true" *ngIf="loginStatus&&(loginRole==='Candidate')">
+      <button mat-button (click)="goTo('jobs')" >Jobs</button>
+      <button mat-button (click)="goTo('applications')" >My Applications</button>
+      <button mat-button (click)="logout()">Logout</button>
+    </div>
+    <div fxShow="true" *ngIf="loginStatus&&(loginRole==='Recruiter')">
+      <button mat-button (click)="goTo('jobs')">Jobs Posted</button>
+      <button mat-button (click)="logout()">Logout</button>
+    </div>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>
       <ng-http-loader
