@@ -1,0 +1,23 @@
+.marginDiv{
+  margin: 10px;
+  font-weight: 500;
+  font-size: large;
+
+}
+
+/* .topDiv{
+  margin-top: 500px;
+} */
+
+mat-expansion-panel{
+  margin: 10px;
+  font-size: medium;
+  font-weight: 700;
+}
+
+
+.rightCorner{
+  position: fixed;
+  right: 10px;
+  bottom: 15px;
+}
